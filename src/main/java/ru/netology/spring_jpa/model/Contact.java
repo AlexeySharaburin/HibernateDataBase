@@ -15,8 +15,10 @@ import java.io.Serializable;
 @Builder
 @Embeddable
 public class Contact implements Serializable {
+
     @Column(nullable = false)
     private String phone;
+
     @Column(nullable = false)
     private String email;
 }

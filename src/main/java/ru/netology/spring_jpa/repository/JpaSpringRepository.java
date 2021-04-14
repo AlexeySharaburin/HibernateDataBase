@@ -2,13 +2,14 @@ package ru.netology.spring_jpa.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import ru.netology.spring_jpa.model.Contact;
 import ru.netology.spring_jpa.model.ComposeId;
+import ru.netology.spring_jpa.model.Contact;
 import ru.netology.spring_jpa.model.Person;
 
+import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 import java.util.stream.IntStream;
 
@@ -19,14 +20,8 @@ public class JpaSpringRepository {
     @Autowired
     private PersonRepository personRepository;
 
-    public List getPersonsByCity(String city) {
-        fillTableSPersons();
-        return null;
-    }
-
+    @PostConstruct
     public void fillTableSPersons() {
-
-        List<Person> persons = new ArrayList<>();
 
         System.out.println("Заполняем базу данных клиентов!");
         var names = List.of("Petr", "Alexey", "Sidor", "Feofan");
@@ -48,14 +43,21 @@ public class JpaSpringRepository {
                                     .build())
                             .city(cities.get(random.nextInt(cities.size())))
                             .build();
-
-                    persons.add(person);
-
+                    personRepository.save(person);
                 });
-
-        personRepository.saveAll(persons);
-
-        persons.forEach(System.out::println);
-
+        personRepository.findAll().forEach(System.out::println);
     }
+
+    public List getPersonsByCity(String city) {
+        return personRepository.findByCity(city);
+    }
+
+    public List getPersonsByAge(int age) {
+        return personRepository.findByComposeIdAgeLessThan(age);
+    }
+
+    public Optional<Person> getPersonsByData(String name, String surname) {
+        return personRepository.findByComposeIdNameAndComposeIdSurname(name, surname);
+    }
+
 }

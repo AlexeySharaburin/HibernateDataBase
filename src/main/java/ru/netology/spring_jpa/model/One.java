@@ -1,4 +1,4 @@
-package ru.netology.spring_jpa.model;//package ru.netology.database_jpql.model;
+//package ru.netology.spring_jpa.model;//package ru.netology.database_jpql.model;
 //
 //
 //import lombok.AllArgsConstructor;
