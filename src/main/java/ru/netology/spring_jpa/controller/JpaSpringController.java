@@ -1,6 +1,7 @@
 package ru.netology.spring_jpa.controller;
 
 import org.springframework.web.bind.annotation.*;
+import ru.netology.spring_jpa.model.One;
 import ru.netology.spring_jpa.model.Person;
 import ru.netology.spring_jpa.service.JpaSpringService;
 
@@ -36,13 +37,12 @@ public class JpaSpringController {
     }
 
     @GetMapping("/persons/by-data")
-    public Optional<Person> getPersonsByData(String name, String surname) {
+    public Optional<Person> getPersonsByData(One one) {
         System.out.println("OK!Data");
-        var person = jpaSpringService.getPersonsByData(name, surname);
-        System.out.printf("Клиент с именем  %s и фамилией %s:\n", name, surname);
+        var person = jpaSpringService.getPersonsByData(one);
+        System.out.printf("Клиент с именем  %s и фамилией %s:\n", one.getName(), one.getSurname());
         System.out.println(person.toString());
         return person;
     }
-
 
 }

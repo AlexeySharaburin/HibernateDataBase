@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.netology.spring_jpa.model.ComposeId;
 import ru.netology.spring_jpa.model.Contact;
+import ru.netology.spring_jpa.model.One;
 import ru.netology.spring_jpa.model.Person;
 
 import javax.annotation.PostConstruct;
@@ -22,6 +23,12 @@ public class JpaSpringRepository {
 
     @PostConstruct
     public void fillTableSPersons() {
+
+        personRepository.save(new Person(
+                new ComposeId("Anton", "Antonov", 44),
+                new Contact("1111111", "anton.antonov@gmail.com"),
+                "Samara"
+                ));
 
         System.out.println("Заполняем базу данных клиентов!");
         var names = List.of("Petr", "Alexey", "Sidor", "Feofan");
@@ -56,8 +63,8 @@ public class JpaSpringRepository {
         return personRepository.findByComposeIdAgeLessThan(age);
     }
 
-    public Optional<Person> getPersonsByData(String name, String surname) {
-        return personRepository.findByComposeIdNameAndComposeIdSurname(name, surname);
+    public Optional<Person> getPersonsByData(One one) {
+        return personRepository.findByComposeIdNameAndComposeIdSurname(one.getName(), one.getSurname());
     }
 
 }

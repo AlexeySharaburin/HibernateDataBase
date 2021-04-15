@@ -1,6 +1,7 @@
 package ru.netology.spring_jpa.service;
 
 import org.springframework.stereotype.Service;
+import ru.netology.spring_jpa.model.One;
 import ru.netology.spring_jpa.model.Person;
 import ru.netology.spring_jpa.repository.JpaSpringRepository;
 
@@ -24,7 +25,7 @@ public class JpaSpringService {
         return jpaSpringRepository.getPersonsByAge(age);
     }
 
-    public Optional<Person> getPersonsByData(String name, String surname) {
-        return jpaSpringRepository.getPersonsByData(name, surname);
+    public Optional<Person> getPersonsByData(One one) {
+        return jpaSpringRepository.getPersonsByData(one);
     }
 }
