@@ -1,6 +1,7 @@
 package ru.netology.spring_jpa_query.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 import ru.netology.spring_jpa_query.model.ComposeId;
 import ru.netology.spring_jpa_query.model.Contact;
@@ -60,7 +61,7 @@ public class JpaQueryRepository {
     }
 
     public List getPersonsByAge(int age) {
-        return personRepository.findByComposeIdAgeLessThan(age);
+        return personRepository.findByComposeIdAgeLessThan(age, Sort.by("contact.phone"));
     }
 
     public Optional<Person> getPersonsByData(One one) {
